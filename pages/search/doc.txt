@@ -1,0 +1,167 @@
+JSE DOCUMENTATION
+
+JSE Version 1.0
+--------------
+*  Addendum*
+*  Modified by JavaScriptKit.com (Nov 26, '02) with the following:
+** Added onSubmit event handlers inside FORM to handle "enter" key
+** Modified formatting of form/result pages to be NS4 friendly.
+** http://www.javascriptkit.com/script/script2/jse/
+-------------
+
+CONTENTS
+
+1. A description of JSE and how the scripts work
+2. The HTML
+3. The script properties
+4. Adding the site data
+5. Licence
+
+
+1. A description of JSE and how the scripts work
+
+JSE is a client-side site search engine. Written entirely in
+JavaScript 1.3 it works with browsers from Netscape 4.7 to
+Microsoft Internet Explorer 6.0.
+
+JSE is Open Source and is released under the GPL licence.
+
+It's best suited to smaller sites with less than 50 pages. JSE is
+platform independent and doesn't require .NET, ASP, CGI or any
+other technologies on your host.
+
+JSE circumvents HMTL's inability to pass a value from one page to
+another by using a session or non-persistent cookie. The cookie
+expires when the user's session ends.
+
+JSE consists of two scripts. The first writes a cookie containing
+the search words and then loads the results page. This script is
+very short, only a few lines, as you may want your search box on
+more than one page. The second script does all the work; reading
+the cookie, defining the matches and generating the search results.
+
+For users, searching is similar to Google. A preceding minus
+character excludes a word, while phrases are supported within
+double-quotes.
+
+
+2. The HTML
+
+The HEAD section of the page containing the search box should
+include:
+
+<script language="JavaScript1.3" type="text/javascript"
+src="jse_form.js"></script>
+
+The FORM code should be similar to the example below. Please note
+that the FORM NAME and initial INPUT values are fixed, and that
+the form must call the search_form(jse_Form) JavaScript function.
+
+<form name="jse_Form">
+<input type="text" name="d">
+<input type="button" value="Go" onclick="search_form(jse_Form)">
+</form>
+
+For the results page, the HEAD section should include:
+
+<script language="JavaScript1.3" type="text/javascript"
+src="jse_search.js"></script>
+
+The code below returns the number of matches found:
+
+<script language="JavaScript1.3" type="text/javascript">num_jse()
+</script>
+
+The code below returns the search results:
+
+<script language="JavaScript1.3" type="text/javascript">out_jse()
+</script>
+
+There is one additional, nonessential function. This should only
+be used on the results page, and should follow the FORM code. It
+adds the previous search query to the FORM search field.
+
+<script language="JavaScript1.3" type="text/javascript">
+return_query()</script>
+
+
+3. The script properties
+
+There are several script properties to control output and specify
+file location. Each of these properties can be found at the
+beginning of the scripts.
+
+There is one property for the jse_form.js script:
+
+results_location = PAGE LOCATION
+
+Where PAGE LOCATION is the location of the search results
+page. This property also accepts a full URL address.
+
+Example:
+var results_location = "results.html";
+
+There are two properties for the jse_search.js script:
+
+include_num = VALUE
+
+Where VALUE is either 1 or 0. Sets results numbering on
+or off.
+
+Example:
+var include_num = 1;
+
+bold = VALUE
+
+Search terms are highlighted in bold if VALUE is 1, and
+returned as plain text if VALUE is 0.
+
+Example:
+var bold = 0;
+
+
+4. Adding the site data
+
+The site data is held as a JavaScript array in the jse_search.js
+script, below the script variables. The format of the array is:
+
+s[REC NUM] = "TITLE^URL OR FILENAME^DESCRIPTIVE LINE^KEYWORDS";
+
+Where ^ is the field separator or delimiter. REC NUM is a
+sequential integer number, starting at zero. URL OR FILENAME
+is the HTML filename or full URL for the page. TITLE and
+DESCRIPTIVE LINE are self-explanatory, while KEYWORDS is also
+searched for matches. The following is a short example:
+
+s[0] = "JSE^jse.html^JSE is a local site search engine ...^open
+source, free";
+
+A search for "search engine" or "open source" would return:
+
+1. JSE
+JSE is a local site search engine ...
+
+
+5. Licence
+
+JSE is Open Source and is released under the GPL licence. A copy
+of the GNU General Public License is included along with this
+documentation.
+
+JSE 1.0
+This or the latest version of JSE can be downloaded from
+www.tipue.com/products/jse
+
+jse@tipue.com
+
+JSE Copyright (C) 2002 Tri-State Consultants
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
